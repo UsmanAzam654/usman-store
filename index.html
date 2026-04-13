@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Usman Store — Fine Goods & Curated Wares</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-ornament">✦</span>
+        <span class="logo-text">Usman Store</span>
+        <span class="logo-ornament">✦</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Shop</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="seller.html">Sell With Us</a></li>
+        <li><a href="admin.html" class="nav-admin">Admin</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg-texture"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Est. MMXXIV &nbsp;·&nbsp; Curated Goods</p>
+      <h1 class="hero-title">A Marketplace<br/><em>of Distinction</em></h1>
+      <p class="hero-sub">Rare finds. Honest prices. Sellers held to the highest standard.</p>
+      <a href="#products" class="btn btn-primary">Browse the Collection</a>
+    </div>
+    <div class="hero-scroll-hint">⬇ Scroll</div>
+  </header>
+
+  <!-- FILTER BAR -->
+  <section class="filter-section">
+    <div class="container">
+      <div class="filter-bar">
+        <span class="filter-label">Filter by:</span>
+        <button class="filter-btn active" data-cat="all">All</button>
+        <button class="filter-btn" data-cat="books">Books</button>
+        <button class="filter-btn" data-cat="antiques">Antiques</button>
+        <button class="filter-btn" data-cat="stationery">Stationery</button>
+        <button class="filter-btn" data-cat="art">Art</button>
+        <button class="filter-btn" data-cat="clothing">Clothing</button>
+        <div class="filter-search">
+          <input type="text" id="searchInput" placeholder="Search goods…" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <main class="products-section" id="products">
+    <div class="container">
+      <h2 class="section-title">Current Offerings</h2>
+      <div class="products-grid" id="productsGrid">
+        <!-- JS rendered -->
+      </div>
+      <div class="no-results hidden" id="noResults">
+        <p>No goods found matching your search.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="container about-inner">
+      <div class="about-text">
+        <h2 class="section-title">A Word on<br/><em>Our Philosophy</em></h2>
+        <p>Usman Store is not merely a marketplace — it is a carefully curated collection of goods that speak to those who appreciate beauty, craft, and intention. Every seller is vetted. Every listing, reviewed.</p>
+        <p>We believe commerce can be civilised. That is the standard we uphold.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat"><span class="stat-num" id="statProducts">0</span><span class="stat-label">Listings</span></div>
+        <div class="stat"><span class="stat-num" id="statSellers">0</span><span class="stat-label">Sellers</span></div>
+        <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Admin Reviewed</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELL CTA -->
+  <section class="sell-cta">
+    <div class="container">
+      <div class="cta-inner">
+        <h2>Have Something Worth Selling?</h2>
+        <p>Apply to become a seller. All listings are subject to admin approval before going live.</p>
+        <a href="seller.html" class="btn btn-primary">Apply to Sell</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">
+        <span class="logo-ornament">✦</span> Usman Store <span class="logo-ornament">✦</span>
+      </div>
+      <p class="footer-tagline"><em>"Quality endures. Mediocrity fades."</em></p>
+      <div class="footer-links">
+        <a href="index.html">Shop</a>
+        <a href="seller.html">Sell</a>
+        <a href="admin.html">Admin</a>
+      </div>
+      <p class="footer-copy">&copy; 2024 Usman Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- PRODUCT MODAL -->
+  <div class="modal-overlay hidden" id="modalOverlay">
+    <div class="modal" id="productModal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

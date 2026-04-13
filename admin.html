@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard — Usman Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ADMIN LOGIN GATE -->
+  <div class="admin-gate" id="adminGate">
+    <div class="gate-card">
+      <div class="gate-logo"><span class="logo-ornament">✦</span> Usman Store <span class="logo-ornament">✦</span></div>
+      <h2>Admin Access</h2>
+      <p>This area is restricted. Please enter your credentials.</p>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="adminUser" placeholder="admin" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="adminPass" placeholder="••••••••" />
+      </div>
+      <span class="field-error" id="loginError"></span>
+      <button class="btn btn-primary" onclick="adminLogin()">Enter Dashboard</button>
+      <p class="gate-hint">(Demo: username <code>admin</code> / password <code>usman2024</code>)</p>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD -->
+  <div class="admin-dashboard hidden" id="adminDashboard">
+
+    <aside class="admin-sidebar">
+      <div class="sidebar-logo"><span class="logo-ornament">✦</span><br/>Usman<br/>Store</div>
+      <nav class="sidebar-nav">
+        <a href="#" class="sidebar-link active" data-tab="overview">Overview</a>
+        <a href="#" class="sidebar-link" data-tab="products">Products</a>
+        <a href="#" class="sidebar-link" data-tab="sellers">Sellers</a>
+        <a href="#" class="sidebar-link" data-tab="applications">Applications <span class="badge" id="pendingBadge">0</span></a>
+      </nav>
+      <button class="btn btn-ghost sidebar-logout" onclick="adminLogout()">Log Out</button>
+    </aside>
+
+    <main class="admin-main">
+
+      <!-- OVERVIEW TAB -->
+      <section class="admin-tab active" id="tab-overview">
+        <div class="admin-header">
+          <h1>Dashboard Overview</h1>
+          <span class="admin-date" id="adminDate"></span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card"><span class="stat-icon">📦</span><div><span class="stat-big" id="adm-products">0</span><span class="stat-lbl">Live Products</span></div></div>
+          <div class="stat-card"><span class="stat-icon">🧑‍💼</span><div><span class="stat-big" id="adm-sellers">0</span><span class="stat-lbl">Active Sellers</span></div></div>
+          <div class="stat-card"><span class="stat-icon">⏳</span><div><span class="stat-big" id="adm-pending">0</span><span class="stat-lbl">Pending Applications</span></div></div>
+          <div class="stat-card"><span class="stat-icon">✅</span><div><span class="stat-big" id="adm-approved">0</span><span class="stat-lbl">Approved This Week</span></div></div>
+        </div>
+        <div class="recent-section">
+          <h2>Recent Applications</h2>
+          <div id="recentApps"></div>
+        </div>
+      </section>
+
+      <!-- PRODUCTS TAB -->
+      <section class="admin-tab hidden" id="tab-products">
+        <div class="admin-header">
+          <h1>All Products</h1>
+          <button class="btn btn-primary btn-sm" onclick="openAddProduct()">+ Add Product</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="productsTable">
+            <thead><tr><th>Name</th><th>Category</th><th>Price</th><th>Seller</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="productsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SELLERS TAB -->
+      <section class="admin-tab hidden" id="tab-sellers">
+        <div class="admin-header"><h1>Sellers</h1></div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="sellersTable">
+            <thead><tr><th>Name</th><th>Email</th><th>Products</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="sellersTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- APPLICATIONS TAB -->
+      <section class="admin-tab hidden" id="tab-applications">
+        <div class="admin-header"><h1>Pending Applications</h1></div>
+        <div id="applicationsContainer"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ADD PRODUCT MODAL -->
+  <div class="modal-overlay hidden" id="addProductOverlay">
+    <div class="modal">
+      <button class="modal-close" onclick="closeAddProduct()">&times;</button>
+      <div class="modal-body">
+        <h2 class="form-title">Add New Product</h2>
+        <div class="form-group"><label>Product Name</label><input type="text" id="newProductName" placeholder="Name"/></div>
+        <div class="form-row">
+          <div class="form-group"><label>Price (PKR)</label><input type="number" id="newProductPrice" placeholder="0" min="0"/></div>
+          <div class="form-group"><label>Category</label>
+            <select id="newProductCat">
+              <option value="books">Books</option><option value="antiques">Antiques</option>
+              <option value="stationery">Stationery</option><option value="art">Art</option>
+              <option value="clothing">Clothing</option><option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>Description</label><textarea id="newProductDesc" rows="3" placeholder="Description…"></textarea></div>
+        <div class="form-group"><label>Image URL</label><input type="url" id="newProductImg" placeholder="https://…"/></div>
+        <button class="btn btn-primary" onclick="saveNewProduct()">Save Product</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
